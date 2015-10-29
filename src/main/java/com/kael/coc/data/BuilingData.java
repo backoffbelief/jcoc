@@ -1,5 +1,10 @@
 package com.kael.coc.data;
 
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BuilingData {
@@ -133,5 +138,78 @@ public class BuilingData {
 		TimeUnit.DAYS.toSeconds(4),
 		TimeUnit.DAYS.toSeconds(6)};
 	
-	
+    static String toString(int i)
+    {
+    	return String.valueOf(i);
+    }
+    static String toString(int[] arr)
+    {
+    	return Arrays.toString(arr);
+    }
+    static String toString(long[] arr)
+    {
+    	return Arrays.toString(arr);
+    }
+    
+    static boolean cas(Field f, BuilingData bd, Properties p) throws Exception
+    {
+           Object val = f.get(bd);
+           if(val.getClass().equals(int.class))
+           {
+        	   if(toString((Integer)val).equals(p.get(f.getName()))){
+        		   return false;
+        	   }
+        	   p.setProperty(f.getName(), toString((Integer)val));
+        	   return true;
+        			   
+           }
+           
+           if(val.getClass().equals(int[].class))
+           {
+        	   if(toString((int[])val).equals(p.get(f.getName()))){
+        		   return false;
+        	   }
+        	   p.setProperty(f.getName(), toString((int[])val));
+        	   return true;
+        			   
+           }
+           
+           if(val.getClass().equals(long[].class))
+           {
+        	   if(toString((long[])val).equals(p.get(f.getName()))){
+        		   return false;
+        	   }
+        	   p.setProperty(f.getName(), toString((long[])val));
+        	   return true;
+        			   
+           }
+		return false;
+    }
+    
+	public static void compareAndSet(){
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		Properties p = new Properties();
+		boolean isStrore = false;
+		try(InputStream inputStream = cl.getResourceAsStream("coc.properties")) {
+			
+			p.load(inputStream);
+			BuilingData bd = new BuilingData();
+			Field[] fs = bd.getClass().getDeclaredFields();
+			for (Field field : fs) {
+				isStrore = cas(field, bd, p) || isStrore;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(isStrore){
+			
+			try (FileWriter fw = new FileWriter(System.getProperty("user.dir")+"/src/main/resources/coc.properties")){
+				p.store(fw, null);
+				System.out.println("cas success!");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
