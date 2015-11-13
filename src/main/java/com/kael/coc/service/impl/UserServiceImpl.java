@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 			building.setPosX(0);
 			building.setPosY(0);
 			building.setUserId(user.getId());
+			building.setEndBuildingTime(new Date(System.currentTimeMillis()));
 			building.setXmlId(1);
 			
 			buildingMapper.insertSelective(building);

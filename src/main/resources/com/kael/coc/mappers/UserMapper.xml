@@ -27,7 +27,7 @@
     insert into user (platformId, rank, 
       fame, lastLoginTime, dimaond, 
       buildingId)
-    values (#{jdbcType=INTEGER}, #{platformId,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+    values ( #{platformId,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
       #{fame,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{dimaond,jdbcType=INTEGER}, 
       #{buildingId,jdbcType=INTEGER})
   </insert>
