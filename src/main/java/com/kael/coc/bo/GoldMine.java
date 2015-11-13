@@ -1,9 +1,9 @@
 package com.kael.coc.bo;
 /**
  * 金矿
- * @author Administrator
+ * @author kael
  *
  */
-public class GoldMine extends ResourcePool{
+public class GoldMine extends Collector{
 
 }

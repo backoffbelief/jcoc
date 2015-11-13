@@ -1,10 +1,10 @@
 package com.kael.coc.data;
 
-import com.google.common.collect.HashBiMap;
+import java.util.HashMap;
 
 public class GlobalCfg {
 
-	private HashBiMap<String, Integer> platformId2UserId;
+	private HashMap<String, Integer> platformId2UserId  = new HashMap<String, Integer>();
 	private int maxUserId;
 	private int minUserId;
 
@@ -12,7 +12,6 @@ public class GlobalCfg {
 	public int getMaxUserId() {
 		return maxUserId;
 	}
-
 	public void setMaxUserId(int maxUserId) {
 		this.maxUserId = maxUserId;
 	}
@@ -24,18 +23,14 @@ public class GlobalCfg {
 	public void setMinUserId(int minUserId) {
 		this.minUserId = minUserId;
 	}
-
-	public boolean isStarted() {
+	
+	public boolean findIsStarted() {
 		return maxUserId == minUserId;
 	}
-
-	public HashBiMap<String, Integer> getPlatformId2UserId() {
+	public HashMap<String, Integer> getPlatformId2UserId() {
 		return platformId2UserId;
 	}
-
-	public void setPlatformId2UserId(HashBiMap<String, Integer> platformId2UserId) {
+	public void setPlatformId2UserId(HashMap<String, Integer> platformId2UserId) {
 		this.platformId2UserId = platformId2UserId;
 	}
-
-	
 }

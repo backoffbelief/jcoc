@@ -39,6 +39,12 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <servlet>
+    	<servlet-name>staticLoad</servlet-name>
+    	<servlet-class>com.kael.coc.web.controller.StaticLoadServlet</servlet-class>
+    	<load-on-startup>0</load-on-startup>
+    </servlet>
+    
 	 <!-- Spring MVC DispatcherServlet -->
     <servlet>
         <servlet-name>springMVC3</servlet-name>

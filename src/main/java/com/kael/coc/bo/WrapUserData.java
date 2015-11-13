@@ -6,7 +6,7 @@ public class WrapUserData {
 
 	private User user;
 	private List<Building> buildings;
-
+	private TownHall townHall ;
 	public User getUser() {
 		return user;
 	}
@@ -21,6 +21,14 @@ public class WrapUserData {
 
 	public void setBuildings(List<Building> buildings) {
 		this.buildings = buildings;
+	}
+	
+	public boolean reflush(){
+		boolean change = false;
+		for(Building building : buildings){
+			change |= building.reflush();
+		}
+		return change;
 	}
 
 }

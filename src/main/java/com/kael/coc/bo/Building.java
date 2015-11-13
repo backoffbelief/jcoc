@@ -1,5 +1,9 @@
 package com.kael.coc.bo;
-
+/**
+ * 父类
+ * @author kael
+ *
+ */
 public class Building {
 	protected int level;
 	protected int id;
@@ -63,6 +67,17 @@ public class Building {
 
 	public void setCurrHp(int currHp) {
 		this.currHp = currHp;
+	}
+	
+	public boolean reflush(){
+		if(endBuildingTime > 0){
+			if(endBuildingTime <= System.currentTimeMillis()){
+				endBuildingTime = 0;
+				level++;
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
