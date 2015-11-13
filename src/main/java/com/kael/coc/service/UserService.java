@@ -1,8 +1,8 @@
 package com.kael.coc.service;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface UserService {
 
-	public void getUserInfo(HashMap<String, String> args);
+	public Map<String, Object> getUserInfo(String platformId);
 }

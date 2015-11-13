@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kael.coc.dao.BuildingMapper" >
+  <resultMap id="BaseResultMap" type="com.kael.coc.bo.Building" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="xmlId" property="xmlId" jdbcType="INTEGER" />
+    <result column="posX" property="posX" jdbcType="INTEGER" />
+    <result column="posY" property="posY" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="goldNum" property="goldNum" jdbcType="INTEGER" />
+    <result column="elixirNum" property="elixirNum" jdbcType="INTEGER" />
+    <result column="currHp" property="currHp" jdbcType="INTEGER" />
+    <result column="endBuildingTime" property="endBuildingTime" jdbcType="TIMESTAMP" />
+    <result column="lastCollectTime" property="lastCollectTime" jdbcType="TIMESTAMP" />
+    <result column="buildId" property="buildId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, xmlId, posX, posY, level, goldNum, elixirNum, currHp, endBuildingTime, 
+    lastCollectTime, buildId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from building
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from building
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kael.coc.bo.Building" >
+    insert into building (id, userId, xmlId, 
+      posX, posY, level, 
+      goldNum, elixirNum, currHp, 
+      endBuildingTime, lastCollectTime, buildId
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{xmlId,jdbcType=INTEGER}, 
+      #{posX,jdbcType=INTEGER}, #{posY,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{goldNum,jdbcType=INTEGER}, #{elixirNum,jdbcType=INTEGER}, #{currHp,jdbcType=INTEGER}, 
+      #{endBuildingTime,jdbcType=TIMESTAMP}, #{lastCollectTime,jdbcType=TIMESTAMP}, #{buildId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kael.coc.bo.Building" >
+    insert into building
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="xmlId != null" >
+        xmlId,
+      </if>
+      <if test="posX != null" >
+        posX,
+      </if>
+      <if test="posY != null" >
+        posY,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="goldNum != null" >
+        goldNum,
+      </if>
+      <if test="elixirNum != null" >
+        elixirNum,
+      </if>
+      <if test="currHp != null" >
+        currHp,
+      </if>
+      <if test="endBuildingTime != null" >
+        endBuildingTime,
+      </if>
+      <if test="lastCollectTime != null" >
+        lastCollectTime,
+      </if>
+      <if test="buildId != null" >
+        buildId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="xmlId != null" >
+        #{xmlId,jdbcType=INTEGER},
+      </if>
+      <if test="posX != null" >
+        #{posX,jdbcType=INTEGER},
+      </if>
+      <if test="posY != null" >
+        #{posY,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="goldNum != null" >
+        #{goldNum,jdbcType=INTEGER},
+      </if>
+      <if test="elixirNum != null" >
+        #{elixirNum,jdbcType=INTEGER},
+      </if>
+      <if test="currHp != null" >
+        #{currHp,jdbcType=INTEGER},
+      </if>
+      <if test="endBuildingTime != null" >
+        #{endBuildingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCollectTime != null" >
+        #{lastCollectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildId != null" >
+        #{buildId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kael.coc.bo.Building" >
+    update building
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="xmlId != null" >
+        xmlId = #{xmlId,jdbcType=INTEGER},
+      </if>
+      <if test="posX != null" >
+        posX = #{posX,jdbcType=INTEGER},
+      </if>
+      <if test="posY != null" >
+        posY = #{posY,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="goldNum != null" >
+        goldNum = #{goldNum,jdbcType=INTEGER},
+      </if>
+      <if test="elixirNum != null" >
+        elixirNum = #{elixirNum,jdbcType=INTEGER},
+      </if>
+      <if test="currHp != null" >
+        currHp = #{currHp,jdbcType=INTEGER},
+      </if>
+      <if test="endBuildingTime != null" >
+        endBuildingTime = #{endBuildingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCollectTime != null" >
+        lastCollectTime = #{lastCollectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildId != null" >
+        buildId = #{buildId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kael.coc.bo.Building" >
+    update building
+    set userId = #{userId,jdbcType=INTEGER},
+      xmlId = #{xmlId,jdbcType=INTEGER},
+      posX = #{posX,jdbcType=INTEGER},
+      posY = #{posY,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      goldNum = #{goldNum,jdbcType=INTEGER},
+      elixirNum = #{elixirNum,jdbcType=INTEGER},
+      currHp = #{currHp,jdbcType=INTEGER},
+      endBuildingTime = #{endBuildingTime,jdbcType=TIMESTAMP},
+      lastCollectTime = #{lastCollectTime,jdbcType=TIMESTAMP},
+      buildId = #{buildId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

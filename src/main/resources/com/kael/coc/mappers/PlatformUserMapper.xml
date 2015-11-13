@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kael.coc.dao.PlatformUserMapper" >
+  <resultMap id="BaseResultMap" type="com.kael.coc.bo.PlatformUser" >
+    <id column="platformId" property="platformId" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    platformId, userId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from platform_user
+    where platformId = #{platformId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from platform_user
+    where platformId = #{platformId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kael.coc.bo.PlatformUser" >
+    insert into platform_user (platformId, userId)
+    values (#{platformId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kael.coc.bo.PlatformUser" >
+    insert into platform_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="platformId != null" >
+        platformId,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="platformId != null" >
+        #{platformId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kael.coc.bo.PlatformUser" >
+    update platform_user
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where platformId = #{platformId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kael.coc.bo.PlatformUser" >
+    update platform_user
+    set userId = #{userId,jdbcType=INTEGER}
+    where platformId = #{platformId,jdbcType=VARCHAR}
+  </update>
+</mapper>

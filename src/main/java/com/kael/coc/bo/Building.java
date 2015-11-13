@@ -1,83 +1,125 @@
 package com.kael.coc.bo;
-/**
- * 父类
- * @author kael
- *
- */
+
+import java.util.Date;
+
 public class Building {
-	protected int level;
-	protected int id;
-	protected int xmlId;
-	protected int posX;
-	protected int posY;
-	protected long endBuildingTime;// 建造结束的时间
-	protected int currHp;
+    private Integer id;
 
-	public int getLevel() {
-		return level;
-	}
+    private Integer userId;
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
+    private Integer xmlId;
 
-	public int getId() {
-		return id;
-	}
+    private Integer posX;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Integer posY;
 
-	public int getXmlId() {
-		return xmlId;
-	}
+    private Integer level;
 
-	public void setXmlId(int xmlId) {
-		this.xmlId = xmlId;
-	}
+    private Integer goldNum;
 
-	public int getPosX() {
-		return posX;
-	}
+    private Integer elixirNum;
 
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
+    private Integer currHp;
 
-	public int getPosY() {
-		return posY;
-	}
+    private Date endBuildingTime;
 
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
+    private Date lastCollectTime;
 
-	public long getEndBuildingTime() {
-		return endBuildingTime;
-	}
+    private Integer buildId;
 
-	public void setEndBuildingTime(long endBuildingTime) {
-		this.endBuildingTime = endBuildingTime;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getCurrHp() {
-		return currHp;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setCurrHp(int currHp) {
-		this.currHp = currHp;
-	}
-	
-	public boolean reflush(){
-		if(endBuildingTime > 0){
-			if(endBuildingTime <= System.currentTimeMillis()){
-				endBuildingTime = 0;
-				level++;
-				return true;
-			}
-		}
-		return false;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getXmlId() {
+        return xmlId;
+    }
+
+    public void setXmlId(Integer xmlId) {
+        this.xmlId = xmlId;
+    }
+
+    public Integer getPosX() {
+        return posX;
+    }
+
+    public void setPosX(Integer posX) {
+        this.posX = posX;
+    }
+
+    public Integer getPosY() {
+        return posY;
+    }
+
+    public void setPosY(Integer posY) {
+        this.posY = posY;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getGoldNum() {
+        return goldNum;
+    }
+
+    public void setGoldNum(Integer goldNum) {
+        this.goldNum = goldNum;
+    }
+
+    public Integer getElixirNum() {
+        return elixirNum;
+    }
+
+    public void setElixirNum(Integer elixirNum) {
+        this.elixirNum = elixirNum;
+    }
+
+    public Integer getCurrHp() {
+        return currHp;
+    }
+
+    public void setCurrHp(Integer currHp) {
+        this.currHp = currHp;
+    }
+
+    public Date getEndBuildingTime() {
+        return endBuildingTime;
+    }
+
+    public void setEndBuildingTime(Date endBuildingTime) {
+        this.endBuildingTime = endBuildingTime;
+    }
+
+    public Date getLastCollectTime() {
+        return lastCollectTime;
+    }
+
+    public void setLastCollectTime(Date lastCollectTime) {
+        this.lastCollectTime = lastCollectTime;
+    }
+
+    public Integer getBuildId() {
+        return buildId;
+    }
+
+    public void setBuildId(Integer buildId) {
+        this.buildId = buildId;
+    }
 }

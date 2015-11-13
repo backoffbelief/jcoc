@@ -1,75 +1,79 @@
 package com.kael.coc.bo;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Date;
 
 public class User {
+    private Integer id;
 
-	private String platformId;
-	private int userId;
-	private int rank;
-	private int fame;
-	private long lastLoginTime;
-	private int dimaond;
-	private AtomicInteger buildingId;
+    private String platformId;
 
-	public String getPlatformId() {
-		return platformId;
-	}
+    private Integer rank;
 
-	public void setPlatformId(String platformId) {
-		this.platformId = platformId;
-	}
+    private Integer fame;
 
-	public int getUserId() {
-		return userId;
-	}
+    private Date lastLoginTime;
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    private Integer dimaond;
 
-	public int getRank() {
-		return rank;
-	}
+    private Integer buildingId;
 
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getFame() {
-		return fame;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setFame(int fame) {
-		this.fame = fame;
-	}
+    public String getPlatformId() {
+        return platformId;
+    }
 
-	public long getLastLoginTime() {
-		return lastLoginTime;
-	}
+    public void setPlatformId(String platformId) {
+        this.platformId = platformId == null ? null : platformId.trim();
+    }
 
-	public void setLastLoginTime(long lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
+    public Integer getRank() {
+        return rank;
+    }
 
-	public int getDimaond() {
-		return dimaond;
-	}
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
 
-	public void setDimaond(int dimaond) {
-		this.dimaond = dimaond;
-	}
+    public Integer getFame() {
+        return fame;
+    }
 
-	public int getBuildingId() {
-		return buildingId.get();
-	}
+    public void setFame(Integer fame) {
+        this.fame = fame;
+    }
 
-	public void setBuildingId(int buildingId) {
-		this.buildingId = new AtomicInteger(buildingId);
-	}
-	
-	public int nextBuildingId(){
-		return buildingId.incrementAndGet();
-	}
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
 
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Integer getDimaond() {
+        return dimaond;
+    }
+
+    public void setDimaond(Integer dimaond) {
+        this.dimaond = dimaond;
+    }
+
+    public Integer getBuildingId() {
+        return buildingId;
+    }
+
+    public Integer incrAndGetBuildingId() {
+    	return ++buildingId;
+    }
+
+    public void setBuildingId(Integer buildingId) {
+        this.buildingId = buildingId;
+    }
 }
