@@ -1,7 +1,7 @@
 package com.kael.coc.bo;
 /**
  * 大本营
- * @author Administrator
+ * @author kael
  *
  */
 public class TownHall extends ResourcePool {

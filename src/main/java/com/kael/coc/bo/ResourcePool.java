@@ -1,7 +1,7 @@
 package com.kael.coc.bo;
 /**
  * 资源池
- * @author Administrator
+ * @author kael
  *
  */
 public class ResourcePool extends Building {

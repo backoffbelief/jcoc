@@ -9,3 +9,6 @@ coc素材
 
 分流下载（百度网盘）：http://pan.baidu.com/share/link?shareid=3001730752&uk=1762295236
 文件解压密码：coc.duowan.com
+
+mvn mybatis-generator:generate 
+生成Mybatis文件
