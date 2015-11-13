@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kael.coc</groupId>
 	<artifactId>core</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Maven Quick Start Archetype</name>
 	<url>http://maven.apache.org</url>
@@ -121,6 +121,27 @@
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
 	</dependencies>
 </project>
