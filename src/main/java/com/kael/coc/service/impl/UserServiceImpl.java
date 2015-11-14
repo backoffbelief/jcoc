@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.kael.coc.bo.Building;
 import com.kael.coc.bo.PlatformUser;
@@ -16,7 +15,6 @@ import com.kael.coc.dao.BuildingMapper;
 import com.kael.coc.dao.PlatformUserMapper;
 import com.kael.coc.dao.UserMapper;
 import com.kael.coc.service.UserService;
-@Service("userService")
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		List<Building> buildings = new ArrayList<Building>();
 		Map<String, Object> result = new HashMap<String, Object>();
-		boolean isNewUser  = false;
+		boolean isNewUser = false;
 		if(platformUser == null){
 			user = new User();
 			user.setBuildingId(1);
@@ -65,7 +63,7 @@ public class UserServiceImpl implements UserService {
 			buildings.add(building);
 			isNewUser = true;
 		}else{
-			user =  userMapper.selectByPrimaryKey(platformUser.getUserId());
+			user = userMapper.selectByPrimaryKey(platformUser.getUserId());
 			buildings.addAll(buildingMapper.findBuildingsByUserId(user.getId()));
 		}
 		result.put("isNewUser", isNewUser);
