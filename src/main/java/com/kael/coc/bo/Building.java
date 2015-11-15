@@ -2,7 +2,11 @@ package com.kael.coc.bo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Building {
+	
+	@JSONField(serialize=false)
     private Integer id;
 
     private Integer userId;
@@ -121,5 +125,9 @@ public class Building {
 
     public void setBuildId(Integer buildId) {
         this.buildId = buildId;
+    }
+    
+    public boolean reflush (){
+    	return false;
     }
 }

@@ -71,3 +71,12 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+DROP TABLE IF EXISTS `barrier`;
+CREATE TABLE `barrier` 
+( `id` INT(11) NOT NULL AUTO_INCREMENT, 
+`userId` INT NOT NULL , 
+`xmlId` INT NOT NULL , 
+`posX` INT NOT NULL ,
+ `posY` INT NOT NULL ,
+  PRIMARY KEY (`id`))
+   ENGINE = InnoDB DEFAULT CHARSET=utf8;
