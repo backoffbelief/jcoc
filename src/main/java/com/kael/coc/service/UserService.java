@@ -4,5 +4,7 @@ import java.util.Map;
 
 public interface UserService {
 
-	public Map<String, Object> getUserInfo(String platformId);
+	Map<String, Object> getUserInfo(String platformId);
+
+	Map<String, Object> deleteBarrier(Integer userId, String pos);
 }

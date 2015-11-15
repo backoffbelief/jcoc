@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +19,8 @@ import com.kael.coc.dao.BuildingMapper;
 import com.kael.coc.dao.PlatformUserMapper;
 import com.kael.coc.dao.UserMapper;
 import com.kael.coc.service.UserService;
+import com.kael.coc.support.BusinessException;
+import com.kael.coc.support.ErrorCode;
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
@@ -95,5 +98,24 @@ public class UserServiceImpl implements UserService {
 		result.put("buildings", buildings);
 		result.put("barriers", barriers);
 		return result;
+	}
+	
+	@Override
+	public Map<String, Object> deleteBarrier(Integer userId, String pos){
+		Barrier barrier = barrierMapper.findBarrier(userId, Integer.valueOf(pos.split("_")[0]), Integer.valueOf(pos.split("_")[1]));
+		if(barrier == null){
+			throw new BusinessException(ErrorCode.NotExistBarrier, String.format("userId(%d),pos(%s) barrier not exist!", userId, pos));
+		}
+		HashMap<String, Object> ret = new HashMap<>();
+		if(barrierMapper.deleteByPrimaryKey(barrier.getId())> 0){
+			int extraDima = new Random().nextInt(6);
+			User user = userMapper.selectByPrimaryKey(userId);
+			user.setDimaond(user.getDimaond() + extraDima);
+			user.setFame(user.getFame() + 100);
+			userMapper.updateByPrimaryKey(user);
+			ret.put("extraDima", extraDima);
+			ret.put("user", user);
+		}
+		return ret;
 	}
 }

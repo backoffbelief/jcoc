@@ -20,7 +20,10 @@ public class LoginController {
 	@RequestMapping(value = "/getUserInfo/{platformId}", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
 	public @ResponseBody String getUserInfo(@PathVariable("platformId")String platformId){
 		return JSON.toJSONString(userService.getUserInfo(platformId), true);
-//		throw new RuntimeException("eeeeee");
-//		throw new BusinessException(100, "sasasa");
+	}
+	
+	@RequestMapping(value="/deleteBarrier/{userId}/{pos}", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	public @ResponseBody String deleteBarrier(@PathVariable("userId")Integer userId, @PathVariable("pos") String pos){
+		return JSON.toJSONString(userService.deleteBarrier(userId, pos), true);
 	}
 }
