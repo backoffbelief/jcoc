@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
 			user.setLastLoginTime(new Date(TimeUtil.currentTimeMillis()));
 			user.setPlatformId(platformId);
 			user.setRank(1);
+			user.setClearBarriersNum(0);
 			userMapper.insert(user);
 			
 			platformUser = new PlatformUser();
@@ -61,23 +62,10 @@ public class UserServiceImpl implements UserService {
 			platformUser.setUserId(user.getId());
 			
 			platformUserMapper.insert(platformUser);
+			BuildProcesser buildProcesser = new BuildProcesser(buildingData, buildings, barriers, user);
 			
-			Building building = new Building();
-			building.setBuildId(user.incrAndGetBuildingId());
-			building.setCurrHp(100);
-			building.setElixirNum(100);
-			building.setGoldNum(100);
-			building.setLevel(1);
-			building.setPosX(0);
-			building.setPosY(0);
-			building.setUserId(user.getId());
-			building.setEndBuildingTime(new Date(TimeUtil.currentTimeMillis()));
-			building.setXmlId(1);
+			buildingMapper.insertSelective(buildProcesser.processNewTownHall());
 			
-			buildingMapper.insertSelective(building);
-			buildings.add(building);
-			
-			BuildProcesser buildProcesser = new BuildProcesser(buildingData, buildings, barriers, user.getId());
 			buildProcesser.processNewBarriers(Constant.maxBarrierNum);
 			
 			barriers = buildProcesser.getBarriers();
@@ -109,13 +97,13 @@ public class UserServiceImpl implements UserService {
 		HashMap<String, Object> ret = new HashMap<>();
 		User user = userMapper.selectByPrimaryKey(userId);
 		if(barrierMapper.deleteByPrimaryKey(barrier.getId())> 0){
+			BuildElemet buildElemet = buildingData.findBuildElement(barrier.getXmlId());
+			int extraDima = Constant.getDimaond(user.getClearBarriersNum());
 			int clearBarriersNum = user.getClearBarriersNum() + 1;
 			if(clearBarriersNum < 0 ){
 				clearBarriersNum = 0;
 			}
-			BuildElemet buildElemet = buildingData.findBuildElement(barrier.getXmlId());
 			user.setClearBarriersNum(clearBarriersNum);
-			int extraDima = new Random().nextInt(Constant.getDimaond(user.getClearBarriersNum()));
 			user.setDimaond(user.getDimaond() + extraDima);
 			user.setFame(user.getFame() + buildElemet.getFame());
 			userMapper.updateByPrimaryKey(user);

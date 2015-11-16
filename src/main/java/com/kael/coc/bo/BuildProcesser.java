@@ -1,6 +1,7 @@
 package com.kael.coc.bo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import com.kael.coc.data.BuildElemet;
 import com.kael.coc.data.BuildingData;
 import com.kael.coc.support.Constant;
 import com.kael.coc.support.RandomUtil;
+import com.kael.coc.support.TimeUtil;
 /**
  * 
  * @author kael
@@ -20,10 +22,12 @@ public class BuildProcesser {
 	private final Set<String> maps = new HashSet<String>();
 	private Integer userId;
 	private BuildingData buildingData;
+	private User user;
 
-	public BuildProcesser(BuildingData buildingData, List<Building> buildings, List<Barrier> barriers, Integer userId) {
+	public BuildProcesser(BuildingData buildingData, List<Building> buildings, List<Barrier> barriers, User user) {
 		super();
-		this.userId = userId;
+		this.userId = user.getId();
+		this.user = user;
 		this.buildingData = buildingData;
 		this.buildings = (buildings == null ? new ArrayList<Building>() : buildings);
 		
@@ -63,9 +67,29 @@ public class BuildProcesser {
 		return null;
 	}
 
+	public Building processNewTownHall() {
+		BuildElemet buildElemet = buildingData.findBuildElement(1000);
+		Building building = new Building();
+		building.setBuildId(user.incrAndGetBuildingId());
+		building.setLevel(1);
+		building.setCurrHp(buildElemet.getHps()[0]);
+		building.setElixirNum(100);
+		building.setGoldNum(100);
+		building.setPosX(198);
+		building.setPosY(198);
+		building.setUserId(userId);
+		building.setEndBuildingTime(new Date(TimeUtil.currentTimeMillis()));
+		building.setXmlId(buildElemet.getXmlId());
+		user.setUpdate(true);
+		for(String e: findBuildingPos(building.getPosX(), building.getPosY(), buildElemet.getSize())){
+			maps.add(e);
+		}
+		buildings.add(building);
+		return building;
+	}
 	public List<Barrier> processNewBarriers(int length) {
 		if(length <= 0 || barriers.size() >= Constant.maxBarrierNum){
-			return new ArrayList<Barrier>() ;
+			return null ;
 		}
 		List<Barrier> tmpBarriers = new ArrayList<Barrier>(length);
 		for (int i = 0; i < length; i++) {
