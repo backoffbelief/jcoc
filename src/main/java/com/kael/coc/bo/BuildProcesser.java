@@ -3,9 +3,12 @@ package com.kael.coc.bo;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
+import com.kael.coc.data.BuildElemet;
+import com.kael.coc.data.BuildingData;
+import com.kael.coc.support.Constant;
+import com.kael.coc.support.RandomUtil;
 /**
  * 
  * @author kael
@@ -16,17 +19,20 @@ public class BuildProcesser {
 	private final List<Barrier> barriers;
 	private final Set<String> maps = new HashSet<String>();
 	private Integer userId;
+	private BuildingData buildingData;
 
-	public BuildProcesser(List<Building> buildings, List<Barrier> barriers, Integer userId) {
+	public BuildProcesser(BuildingData buildingData, List<Building> buildings, List<Barrier> barriers, Integer userId) {
 		super();
 		this.userId = userId;
+		this.buildingData = buildingData;
 		this.buildings = (buildings == null ? new ArrayList<Building>() : buildings);
 		
 		this.barriers = (barriers == null ? new ArrayList<Barrier>() : barriers);
 		
 		if(!this.buildings.isEmpty()){
 			for (Building building : this.buildings) {
-				for(String e : findBuildingPos(building.getPosX(), building.getPosY(), 3)){
+				BuildElemet elemet = buildingData.findBuildElement(building.getXmlId());
+				for(String e : findBuildingPos(building.getPosX(), building.getPosY(), elemet.getSize())){
 					maps.add(e);
 				}
 			}
@@ -34,14 +40,15 @@ public class BuildProcesser {
 		
 		if(!this.barriers.isEmpty()){
 			for (Barrier building : this.barriers) {
-				for(String e : findBuildingPos(building.getPosX(), building.getPosY(), 3)){
+				BuildElemet elemet = buildingData.findBuildElement(building.getXmlId());
+				for(String e : findBuildingPos(building.getPosX(), building.getPosY(), elemet.getSize())){
 					maps.add(e);
 				}
 			}
 		}
 	}
 	
-	private String[] findBuildingPos(int posX, int posY, int size){
+	private static String[] findBuildingPos(int posX, int posY, int size){
 		if(posX >= 0 && posY >= 0 && posX +size < 400 && posY +size < 400){
 			String[] str = new String[size * size];
 			int k = 0;
@@ -56,19 +63,21 @@ public class BuildProcesser {
 		return null;
 	}
 
-	public void processNewBarriers(int length) {
-		if(length <= 0){
-			return ;
+	public List<Barrier> processNewBarriers(int length) {
+		if(length <= 0 || barriers.size() >= Constant.maxBarrierNum){
+			return new ArrayList<Barrier>() ;
 		}
-		Random r = new Random();
+		List<Barrier> tmpBarriers = new ArrayList<Barrier>(length);
 		for (int i = 0; i < length; i++) {
 			int x = -1;
 			int y = -1;
-			do
-			{
-				x = r.nextInt(400 - 3);
-				y = r.nextInt(400 - 3);
-				String[] str = findBuildingPos(x, y, 3);
+			int xmlId = 0;
+			do{
+				xmlId = buildingData.nextBarrierId(true);
+				int size = buildingData.findBuildElement(xmlId).getSize();
+				x =RandomUtil.nextInt(400 - size);
+				y = RandomUtil.nextInt(400 - size);
+				String[] str = findBuildingPos(x, y, size);
 				boolean match = true;
 				for (String e : str) {
 					if(maps.contains(e)){
@@ -81,10 +90,10 @@ public class BuildProcesser {
 					Barrier barrier = new Barrier();
 					barrier.setPosX(x);
 					barrier.setPosY(y);
-					barrier.setXmlId(100);
+					barrier.setXmlId(xmlId);
 					barrier.setUserId(userId);
 					barriers.add(barrier);
-					
+					tmpBarriers.add(barrier);
 					for (String e : str) {
 						maps.add(e);
 					}
@@ -92,8 +101,11 @@ public class BuildProcesser {
 				}
 				
 			}while(true);
-			
+			if(barriers.size() >= Constant.maxBarrierNum){
+				break;
+			}
 		}
+		return tmpBarriers;
 	}
 
 	public List<Building> getBuildings() {

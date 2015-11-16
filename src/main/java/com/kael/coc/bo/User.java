@@ -17,6 +17,8 @@ public class User {
 
     private Integer buildingId;
 
+    private Integer clearBarriersNum;
+
     public Integer getId() {
         return id;
     }
@@ -69,11 +71,19 @@ public class User {
         return buildingId;
     }
 
-    public Integer incrAndGetBuildingId() {
-    	return ++buildingId;
-    }
-
     public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
+    }
+
+    public Integer getClearBarriersNum() {
+        return clearBarriersNum;
+    }
+
+    public void setClearBarriersNum(Integer clearBarriersNum) {
+        this.clearBarriersNum = clearBarriersNum;
+    }
+    
+    public Integer incrAndGetBuildingId() {
+    	return ++buildingId;
     }
 }

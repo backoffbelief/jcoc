@@ -65,6 +65,7 @@ CREATE TABLE `user` (
   `lastLoginTime` datetime DEFAULT NULL,
   `dimaond` int(11) DEFAULT NULL,
   `buildingId` int(11) DEFAULT NULL,
+   `clearBarriersNum` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

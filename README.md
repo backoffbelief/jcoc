@@ -12,3 +12,8 @@ coc素材
 
 mvn mybatis-generator:generate 
 生成Mybatis文件
+
+
+todo-20151116
+1.把配置写成json格式的数据
+2.装饰
