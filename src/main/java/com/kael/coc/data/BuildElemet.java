@@ -1,5 +1,13 @@
 package com.kael.coc.data;
 
+import com.kael.coc.bo.Building;
+import com.kael.coc.bo.Cost;
+import com.kael.coc.bo.Produce;
+import com.kael.coc.bo.User;
+import com.kael.coc.support.BusinessException;
+import com.kael.coc.support.ErrorCode;
+import com.kael.coc.support.MathUtil;
+
 public class BuildElemet implements Comparable<BuildElemet>{
 
 	private int xmlId;
@@ -258,4 +266,35 @@ public class BuildElemet implements Comparable<BuildElemet>{
 		this.weight = weight;
 	}
 	
+	
+	public Cost findCost(int level, User user, Building town){
+		if(needUserRank != null && user.getRank()<needUserRank[level  -1 ]){
+			throw new BusinessException(ErrorCode.ThisBuildingNeedMoreHigherRank, "");
+		}
+		if(needTownLevel != null &&  town.getLevel() < needTownLevel[level - 1]){
+			throw new BusinessException(ErrorCode.ThisBuildingNeedMoreHigherRank, "");
+		}
+		
+		Cost c = new Cost();
+		if(upgradeNeedGold != null){
+			c.setGoldNum( upgradeNeedGold[level -1]);
+		}
+		if(upgradeNeedElixir != null){
+			c.setElixirNum(upgradeNeedElixir[level -1]);
+		}
+		if(upgradeTime != null){
+			c.setCostSeconds(upgradeTime[level-1]);
+		}
+		return c;
+	}
+ 
+	public Produce findProduce(Integer level, long interval) {
+		Produce p = new Produce();
+		if(goldMineSpeedPerHour != null){
+			p.setGoldNum(Math.min(MathUtil.cal(goldMineSpeedPerHour[level - 1], interval), goldCapacity[level - 1 ]));
+		}else if(elixirCollectorSpeedPerHour!= null){
+			p.setElixirNum(Math.min(MathUtil.cal(elixirCollectorSpeedPerHour[level - 1], interval), elixirCapacity[level - 1 ]));
+		}
+		return p;
+	}
 }

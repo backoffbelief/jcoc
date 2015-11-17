@@ -26,4 +26,8 @@ public class LoginController {
 	public @ResponseBody String deleteBarrier(@PathVariable("userId")Integer userId, @PathVariable("pos") String pos){
 		return JSON.toJSONString(userService.deleteBarrier(userId, pos), true);
 	}
+	@RequestMapping(value="/upgradeBuilding/{userId}/{buildId}", method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	public @ResponseBody String upgradeBuilding(@PathVariable("userId")Integer userId, @PathVariable("buildId") Integer buildId){
+		return JSON.toJSONString(userService.upgradeBuilding(userId, buildId), true);
+	}
 }
