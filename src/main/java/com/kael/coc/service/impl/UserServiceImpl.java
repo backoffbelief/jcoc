@@ -5,14 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kael.coc.bo.Barrier;
 import com.kael.coc.bo.BuildProcesser;
 import com.kael.coc.bo.Building;
+import com.kael.coc.bo.Cost;
 import com.kael.coc.bo.PlatformUser;
+import com.kael.coc.bo.Produce;
 import com.kael.coc.bo.User;
 import com.kael.coc.dao.BarrierMapper;
 import com.kael.coc.dao.BuildingMapper;
@@ -111,5 +112,40 @@ public class UserServiceImpl implements UserService {
 			ret.put("user", user);
 		}
 		return ret;
+	}
+
+	@Override
+	public Map<String, Object> upgradeBuilding(Integer userId, Integer buildId) {
+		Building building = buildingMapper.findBuildingByUserId(userId, buildId);
+		if(building == null){
+			throw new BusinessException(ErrorCode.NotExistBuilding, String.format("userId(%d),buildId(%d) barrier not exist!", userId, buildId));
+		}
+		BuildElemet buildElemet = buildingData.findBuildElement(building.getXmlId());
+		if(buildElemet == null){
+			throw new BusinessException(ErrorCode.NotExistBuildingElement,String.format("not exist building xmlId(%d)",building.getXmlId()));
+		}
+		if(buildElemet.getMaxLevel() <= building.getLevel()){
+			throw new BusinessException(ErrorCode.ThisBuildingHasMaxLevel,String.format("this  building xmlId(%d),level(%d) is Maxed!",building.getXmlId(),building.getLevel()));
+		}
+		Produce produce = buildElemet.findProduce(building.getLevel(), TimeUtil.currentTimeMillis() -  building.getLastCollectTime().getTime());
+		if(produce.getGoldNum() > 0){
+			building.setLastCollectTime(new Date(TimeUtil.currentTimeMillis()));
+		}
+		
+		User user = userMapper.selectByPrimaryKey(userId);
+		Building town = buildingMapper.findBuildingsByUserId(userId, Constant.TownHallXmlId).get(0);
+		Cost cost = buildElemet.findCost(building.getLevel(), user, town);
+		int dst = 0;
+		if(cost.getGoldNum() > 0){
+			List<Building>buildings  = buildingMapper.findBuildingsByUserId(userId);
+			for (Building tmpBuild : buildings) {
+				if(tmpBuild.getBuildId() == buildId){
+					
+				}
+			}
+		}
+		List<Building> tmps = new ArrayList<Building>();
+		
+		return null;
 	}
 }

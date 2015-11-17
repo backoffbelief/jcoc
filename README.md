@@ -17,3 +17,6 @@ mvn mybatis-generator:generate
 todo-20151116
 1.把配置写成json格式的数据
 2.装饰
+
+todo-20151117
+普通建筑升级

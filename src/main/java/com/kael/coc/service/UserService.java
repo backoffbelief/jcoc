@@ -7,4 +7,6 @@ public interface UserService {
 	Map<String, Object> getUserInfo(String platformId);
 
 	Map<String, Object> deleteBarrier(Integer userId, String pos);
+
+	Map<String, Object> upgradeBuilding(Integer userId, Integer buildId);
 }
