@@ -30,4 +30,5 @@ public class LoginController {
 	public @ResponseBody String upgradeBuilding(@PathVariable("userId")Integer userId, @PathVariable("buildId") Integer buildId){
 		return JSON.toJSONString(userService.upgradeBuilding(userId, buildId), true);
 	}
+	
 }
