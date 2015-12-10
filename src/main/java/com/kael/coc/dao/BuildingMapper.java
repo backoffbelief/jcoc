@@ -24,7 +24,7 @@ public interface BuildingMapper {
     List<Building> findBuildingsByUserId(Integer userId);
 
     @Select("select * from building where userId=#{userId} and xmlId=#{xmlId}")
-    List<Building> findBuildingsByUserId(@Param("userId") Integer userId, @Param("xmlId") Integer xmlId );
+    List<Building> findBuildingsByUserIdAndXmlId(@Param("userId") Integer userId, @Param("xmlId") Integer xmlId );
 
     @Select("select * from building where userId=#{userId} and buildId=#{buildId}")
     Building findBuildingByUserId(@Param("userId") Integer userId, @Param("buildId") Integer buildId );

@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		User user = userMapper.selectByPrimaryKey(userId);
-		Building town = buildingMapper.findBuildingsByUserId(userId, Constant.TownHallXmlId).get(0);
+		Building town = buildingMapper.findBuildingsByUserIdAndXmlId(userId, Constant.TownHallXmlId).get(0);
 		Cost cost = buildElemet.findCost(building.getLevel(), user, town);
 		int dst = 0;
 		if(cost.getGoldNum() > 0){
