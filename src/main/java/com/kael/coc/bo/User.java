@@ -2,10 +2,7 @@ package com.kael.coc.bo;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 public class User {
-	@JSONField(serialize=false)
     private Integer id;
 
     private String platformId;
@@ -18,10 +15,8 @@ public class User {
 
     private Integer dimaond;
    
-    @JSONField(serialize=false)
     private Integer buildingId;
     
-    @JSONField(serialize=false)
     private Integer clearBarriersNum;
     
     private transient boolean update;

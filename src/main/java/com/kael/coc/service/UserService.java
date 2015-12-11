@@ -9,4 +9,6 @@ public interface UserService {
 	Map<String, Object> deleteBarrier(Integer userId, String pos);
 
 	Map<String, Object> upgradeBuilding(Integer userId, Integer buildId);
+
+	Map<String, Object> createNewBuild(Integer userId, Integer buildId, String buildPos);
 }

@@ -10,8 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
-import com.alibaba.fastjson.JSONWriter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.kael.coc.support.JsonUtils;
 
 public class GlobalCfg {
     private static void addBuildingl(List<BuildElemet> buildElemets, Map<String, Object> args)  throws Exception{
@@ -236,11 +235,9 @@ public class GlobalCfg {
 				addBarracks(buildElemets);
 				addBarrier(buildElemets);
 				Collections.sort(buildElemets);
-				
-				try(JSONWriter jsonWriter = new JSONWriter(new FileWriter(System.getProperty("user.dir")+"/src/main/resources/coc_bulid.json", false))){
-					jsonWriter.config(SerializerFeature.PrettyFormat, true);
-					jsonWriter.writeValue(buildElemets);
-					jsonWriter.flush();
+				try(FileWriter fw = new FileWriter(System.getProperty("user.dir")+"/src/main/resources/coc_bulid.json", false)){
+					fw.write(JsonUtils.toJSON(buildElemets));
+					fw.flush();
 				}catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -1,5 +1,6 @@
 package com.kael.coc.data;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,10 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONReader;
 import com.kael.coc.support.BusinessException;
 import com.kael.coc.support.ErrorCode;
 import com.kael.coc.support.IntHashMap;
+import com.kael.coc.support.JsonUtils;
 import com.kael.coc.support.RandomUtil;
 
 @Component
@@ -32,8 +32,13 @@ public class BuildingData {
 		List<Integer> stonesList = new ArrayList<Integer>();
 		List<Integer> weigts_plantList = new ArrayList<Integer>();
 		//List<Integer> weigts_stonesList = new ArrayList<Integer>();
-		try(JSONReader reader  = new JSONReader(new InputStreamReader(classLoader.getResourceAsStream("coc_bulid.json")))){
-			List<BuildElemet> buildList = JSON.parseArray(reader.readString(), BuildElemet.class);
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream("coc_bulid.json")))){
+			StringBuilder builder = new StringBuilder();
+			String line ;
+			while((line = reader.readLine()) != null){
+				builder.append(line);
+			}
+			List<BuildElemet> buildList = JsonUtils.fromJSONToList(builder.toString(), BuildElemet.class);
 			for (BuildElemet buildElemet : buildList) {
 				bulidElements.put(buildElemet.getXmlId(), buildElemet);
 				if(buildElemet.getXmlId() >= 2000 && buildElemet.getXmlId() < 3000 ){

@@ -1,10 +1,7 @@
 package com.kael.coc.bo;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 public class Barrier {
 	
-	@JSONField(serialize=false)
     private Integer id;
 
     private Integer userId;

@@ -32,4 +32,8 @@ public class LoginController {
 		return userService.upgradeBuilding(userId, buildId);
 	}
 	
+	@RequestMapping(value="/createNewBuild/{userId}/{itemId}/{pos}",method = {RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	public @ResponseBody Map<String, Object> createNewBuild(@PathVariable("userId")Integer userId, @PathVariable("buildId") Integer buildId,@PathVariable("pos")String buildPos){
+		return userService.createNewBuild(userId,buildId,buildPos);
+	}
 }

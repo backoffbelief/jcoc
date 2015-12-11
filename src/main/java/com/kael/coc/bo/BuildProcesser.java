@@ -10,7 +10,6 @@ import com.kael.coc.data.BuildElemet;
 import com.kael.coc.data.BuildingData;
 import com.kael.coc.support.Constant;
 import com.kael.coc.support.RandomUtil;
-import com.kael.coc.support.TimeUtil;
 /**
  * 
  * @author kael
@@ -53,7 +52,7 @@ public class BuildProcesser {
 	}
 	
 	private static String[] findBuildingPos(int posX, int posY, int size){
-		if(posX >= 0 && posY >= 0 && posX +size < 400 && posY +size < 400){
+		if(posX >= 0 && posY >= 0 && posX +size < 40 && posY +size < 40){
 			String[] str = new String[size * size];
 			int k = 0;
 			for (int i = 0; i < size; i++) {
@@ -75,10 +74,10 @@ public class BuildProcesser {
 		building.setCurrHp(buildElemet.getHps()[0]);
 		building.setElixirNum(100);
 		building.setGoldNum(100);
-		building.setPosX(198);
-		building.setPosY(198);
+		building.setPosX(19);
+		building.setPosY(19);
 		building.setUserId(userId);
-		building.setEndBuildingTime(new Date(TimeUtil.currentTimeMillis()));
+		building.setEndBuildingTime(new Date(0));
 		building.setXmlId(buildElemet.getXmlId());
 		user.setUpdate(true);
 		for(String e: findBuildingPos(building.getPosX(), building.getPosY(), buildElemet.getSize())){
@@ -99,8 +98,8 @@ public class BuildProcesser {
 			do{
 				xmlId = buildingData.nextBarrierId(true);
 				int size = buildingData.findBuildElement(xmlId).getSize();
-				x =RandomUtil.nextInt(400 - size);
-				y = RandomUtil.nextInt(400 - size);
+				x =RandomUtil.nextInt(40 - size);
+				y = RandomUtil.nextInt(40 - size);
 				String[] str = findBuildingPos(x, y, size);
 				boolean match = true;
 				for (String e : str) {

@@ -148,4 +148,9 @@ public class UserServiceImpl implements UserService {
 		
 		return null;
 	}
+
+	@Override
+	public Map<String, Object> createNewBuild(Integer userId, Integer buildId, String buildPos) {
+		return null;
+	}
 }
