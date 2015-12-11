@@ -51,11 +51,13 @@
 	</bean>
 	 -->
 	 <bean id="userService" class="com.kael.coc.service.impl.UserServiceImpl"/>
+	 <bean id="accountService" class="com.kael.coc.service.impl.AccountServiceImpl"/>
 	<bean
 		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
 		<property name="beanNames">
 			<list>
 				<value>userService</value>
+				<value>accountService</value>
 			</list>
 		</property>
 		<property name="interceptorNames">
