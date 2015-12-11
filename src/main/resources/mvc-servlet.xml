@@ -34,7 +34,7 @@
 			</list>
 		</property>
 	</bean>
-	<!-- 输出对象转JSON支持 -->
+	<!-- 输出对象转JSON支持
 	<bean id="jsonConverter"
 		class="com.kael.coc.support.MappingFastJsonHttpMessageConverter">
 		<property name="supportedMediaTypes" value="application/json" />
@@ -46,12 +46,16 @@
 			</array>
 		</property>
 	</bean>
+	 -->
+	 <bean id="jacksonCoverter"  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	 
+	 </bean>
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<ref bean="stringConverter" />
-				<ref bean="jsonConverter" />
+				<ref bean="jacksonCoverter" />
 			</list>
 		</property>
 	</bean>
