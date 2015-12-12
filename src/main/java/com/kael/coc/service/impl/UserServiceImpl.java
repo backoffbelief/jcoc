@@ -150,7 +150,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> createNewBuild(Integer userId, Integer buildId, String buildPos) {
-		return null;
+	public Map<String, Object> createNewBuild(Integer userId, Integer xmlId, String buildPos) {
+		String[] tmps = buildPos.split("_");
+		int x = Integer.parseInt(tmps[0]);
+		int y = Integer.parseInt(tmps[1]);
+		User user = userMapper.selectByPrimaryKey(userId);
+		List<Building> buildings = buildingMapper.findBuildingsByUserId(userId);
+		List<Barrier> barriers = barrierMapper.findAllBarriersByUser(userId);
+		BuildProcesser buildProcesser = new BuildProcesser(buildingData, buildings, barriers, user);
+		buildingMapper.insert(buildProcesser.buildNewBuild(xmlId,x,y));
+		userMapper.updateByPrimaryKey(user);
+		return new HashMap<String, Object>();
 	}
 }

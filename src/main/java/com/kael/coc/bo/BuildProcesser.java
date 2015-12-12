@@ -8,7 +8,9 @@ import java.util.Set;
 
 import com.kael.coc.data.BuildElemet;
 import com.kael.coc.data.BuildingData;
+import com.kael.coc.support.BusinessException;
 import com.kael.coc.support.Constant;
+import com.kael.coc.support.ErrorCode;
 import com.kael.coc.support.RandomUtil;
 /**
  * 
@@ -137,6 +139,33 @@ public class BuildProcesser {
 
 	public List<Barrier> getBarriers() {
 		return barriers;
+	}
+
+	public Building buildNewBuild(Integer xmlId, int x, int y) {
+		BuildElemet buildElemet = buildingData.findBuildElement(xmlId);
+		String[] str = findBuildingPos(x, y, buildElemet.getSize());
+		for (String e : str) {
+			if(maps.contains(e)){
+				throw new BusinessException(ErrorCode.REAPT_POS);
+			}
+		}
+		Building building = new Building();
+		building.setBuildId(user.incrAndGetBuildingId());
+		building.setLevel(1);
+		building.setCurrHp(buildElemet.getHps()[0]);
+		building.setElixirNum(0);
+		building.setGoldNum(0);
+		building.setPosX(x);
+		building.setPosY(y);
+		building.setUserId(userId);
+		building.setEndBuildingTime(new Date(0));
+		building.setXmlId(buildElemet.getXmlId());
+		user.setUpdate(true);
+		for(String e: str){
+			maps.add(e);
+		}
+		buildings.add(building);
+		return building;
 	}
 	
 	

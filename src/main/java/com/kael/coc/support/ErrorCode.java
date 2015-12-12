@@ -12,4 +12,5 @@ public class ErrorCode {
    public static final int NotExistBuilding = 10002;
    public static final int ThisBuildingHasMaxLevel = 10003;
    public static final int ThisBuildingNeedMoreHigherRank = 10004;
+   public static final int REAPT_POS = 10005;
 }
